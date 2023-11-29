@@ -239,6 +239,11 @@ class Task(NestedSet):
 					"depends_on", {"doctype": "Task Depends On", "task": self.name, "subject": self.subject}
 				)
 				parent.save()
+			else:
+				for row in parent.depends_on: 
+					if row.task == self.name:
+						row.subject = self.subject
+				parent.save()
 
 	def on_trash(self):
 		if check_if_child_exists(self.name):
